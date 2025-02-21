@@ -1,0 +1,13 @@
+package com.rays.adv;
+
+public class FirstConnec {
+	
+	public static void main(String[] args) throws Exception {
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		
+		
+	}
+
+}

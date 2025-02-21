@@ -1,0 +1,16 @@
+package com.rays.adv;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class FirstConnec {
+
+	public static void main(String[] args) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://loalhost:3306/advancejava", "root", "root");
+
+	}
+
+}

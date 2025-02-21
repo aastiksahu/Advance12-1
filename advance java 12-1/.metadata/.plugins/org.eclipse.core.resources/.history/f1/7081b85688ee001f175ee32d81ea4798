@@ -1,0 +1,78 @@
+package com.rays.prepstmt;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.List;
+
+public class TestUserModel {
+
+	public static void main(String[] args) throws Exception {
+
+		// testAdd();
+		// testDelete();
+		// testUpdate();
+		testSearch();
+	}
+
+	private static void testSearch() throws Exception {
+		
+		UserBean bean = new UserBean();
+		
+		UserModel model = new UserModel();
+		
+		List list = model.search(bean);
+		
+		Iterator it = list.iterator();
+		
+		while(it.hasNext()) {
+			
+			dto = it.next();
+			
+		}
+		
+	}
+
+	private static void testUpdate() throws Exception {
+
+		UserBean bean = new UserBean();
+
+		UserModel model = new UserModel();
+
+		bean.setFirstName("Rahul");
+		bean.setId(3);
+
+		model.update(bean);
+
+	}
+
+	private static void testDelete() throws Exception {
+
+		UserModel model = new UserModel();
+
+		model.delete(3);
+
+	}
+
+	private static void testAdd() throws Exception {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		UserBean bean = new UserBean();
+
+		bean.setId(3);
+		bean.setFirstName("Mohan");
+		bean.setLastName("Yadav");
+		bean.setLoginId("mohan@gmail.com");
+		bean.setPassword("09876543210");
+		bean.setAddress("indore");
+		bean.setGender("Male");
+		bean.setDob(sdf.parse("1984-02-03"));
+
+		UserModel model = new UserModel();
+
+		model.add(bean);
+
+	}
+
+}

@@ -1,0 +1,99 @@
+package com.rays.marks;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.rays.prepstmt.UserBean;
+
+public class MarksheetModel {
+
+	public void add(MarksheetBean bean) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advancejava", "root", "root");
+
+		PreparedStatement pstmt = conn.prepareStatement("insert into marksheet values(?,?,?,?,?,?,?)");
+
+		pstmt.setInt(1, bean.getId());
+		pstmt.setInt(2, bean.getRollNo());
+		pstmt.setString(3, bean.getFirstName());
+		pstmt.setString(4, bean.getLastName());
+		pstmt.setInt(5, bean.getPhysics());
+		pstmt.setInt(6, bean.getChemistry());
+		pstmt.setInt(7, bean.getMaths());
+
+		int i = pstmt.executeUpdate();
+
+		System.out.println("Data Added Successfully...." + i);
+
+	}
+
+	public void update(MarksheetBean bean) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advancejava", "root", "root");
+
+		PreparedStatement pstmt = conn.prepareStatement("update marksheet set firstName =? where id = ?");
+
+		pstmt.setString(1, bean.getFirstName());
+		pstmt.setInt(2, bean.getId());
+
+		int i = pstmt.executeUpdate();
+
+		System.out.println("Data Update Successfully : " + i);
+
+	}
+
+	public void delete(int id) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advancejava", "root", "root");
+
+		PreparedStatement pstmt = conn.prepareStatement("delete from marksheet where id = ?");
+
+		pstmt.setInt(1, id);
+
+		int i = pstmt.executeUpdate();
+
+		System.out.println("Data Deleted Successfully : " + i);
+
+	}
+	
+	public List search(MarksheetBean bean) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advancejava", "root", "root");
+
+		PreparedStatement pstmt = conn.prepareStatement("select * from user");
+
+		ResultSet rs = pstmt.executeQuery();
+
+		List list = new ArrayList();
+
+		while (rs.next()) {
+			bean = new UserBean();
+
+			bean.setId(rs.getInt(1));
+			bean.setFirstName(rs.getString(2));
+			bean.setLastName(rs.getString(3));
+			bean.setLoginId(rs.getString(4));
+			bean.setPassword(rs.getString(5));
+			bean.setAddress(rs.getString(6));
+			bean.setGender(rs.getString(7));
+			bean.setDob(rs.getDate(8));
+
+			list.add(bean);
+
+		}
+		return list;
+	}
+
+}

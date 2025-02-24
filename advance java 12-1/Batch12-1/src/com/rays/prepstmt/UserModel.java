@@ -16,20 +16,39 @@ public class UserModel {
 
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advancejava", "root", "root");
 
-		PreparedStatement pstmt = conn.prepareStatement("insert into user values(?,?,?,?,?,?,?,?)");
+		UserBean existBean = findByLogin(bean.getLoginId());
 
-		pstmt.setInt(1, bean.getId());
-		pstmt.setString(2, bean.getFirstName());
-		pstmt.setString(3, bean.getLastName());
-		pstmt.setString(4, bean.getLoginId());
-		pstmt.setString(5, bean.getPassword());
-		pstmt.setString(6, bean.getAddress());
-		pstmt.setString(7, bean.getGender());
-		pstmt.setDate(8, new java.sql.Date(bean.getDob().getTime()));
+		if (existBean != null) {
 
-		int i = pstmt.executeUpdate();
+			throw new Exception("loginId alreday exist...");
 
-		System.out.println("Data Added Successfully :" + i);
+		}
+
+		conn.setAutoCommit(false);
+
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("insert into user values(?,?,?,?,?,?,?,?)");
+
+			pstmt.setInt(1, bean.getId());
+			pstmt.setString(2, bean.getFirstName());
+			pstmt.setString(3, bean.getLastName());
+			pstmt.setString(4, bean.getLoginId());
+			pstmt.setString(5, bean.getPassword());
+			pstmt.setString(6, bean.getAddress());
+			pstmt.setString(7, bean.getGender());
+			pstmt.setDate(8, new java.sql.Date(bean.getDob().getTime()));
+
+			int i = pstmt.executeUpdate();
+
+			System.out.println("Data Added Successfully :" + i);
+
+			conn.commit();
+		} catch (Exception e) {
+
+			conn.rollback();
+
+		}
+
 	}
 
 	public void delete(int id) throws Exception {
@@ -38,13 +57,25 @@ public class UserModel {
 
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advancejava", "root", "root");
 
-		PreparedStatement pstmt = conn.prepareStatement("delete from user where id = ?");
+		conn.setAutoCommit(false);
 
-		pstmt.setInt(1, id);
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("delete from user where id = ?");
 
-		int i = pstmt.executeUpdate();
+			pstmt.setInt(1, id);
 
-		System.out.println("Data Deleted Successfully : " + i);
+			int i = pstmt.executeUpdate();
+
+			System.out.println("Data Deleted Successfully : " + i);
+
+			conn.commit();
+
+		} catch (Exception e) {
+
+			conn.rollback();
+
+		}
+
 	}
 
 	public void update(UserBean bean) throws Exception {
@@ -155,7 +186,7 @@ public class UserModel {
 		return bean;
 	}
 
-	public UserBean authenticate(String loginId , String password) throws Exception {
+	public UserBean authenticate(String loginId, String password) throws Exception {
 
 		Class.forName("com.mysql.cj.jdbc.Driver");
 

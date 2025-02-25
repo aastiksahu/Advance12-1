@@ -7,20 +7,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class UserModel {
 
+	ResourceBundle rb = ResourceBundle.getBundle("com.rays.bundle.system");
+
 	public void add(UserBean bean) throws Exception {
 
-		Class.forName("com.mysql.cj.jdbc.Driver");
+		Class.forName(rb.getString("driver"));
 
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advancejava", "root", "root");
+		Connection conn = DriverManager.getConnection(rb.getString("url"), rb.getString("username"),
+				rb.getString("password"));
 
 		UserBean existBean = findByLogin(bean.getLoginId());
 
 		if (existBean != null) {
 
-			throw new Exception("loginId alreday exist...");
+			throw new Exception("loginId allready exist...");
 
 		}
 
@@ -43,9 +47,10 @@ public class UserModel {
 			System.out.println("Data Added Successfully :" + i);
 
 			conn.commit();
-		} catch (Exception e) {
+			} catch (Exception e) {
 
 			conn.rollback();
+			e.printStackTrace();
 
 		}
 
@@ -73,6 +78,7 @@ public class UserModel {
 		} catch (Exception e) {
 
 			conn.rollback();
+			e.printStackTrace();
 
 		}
 

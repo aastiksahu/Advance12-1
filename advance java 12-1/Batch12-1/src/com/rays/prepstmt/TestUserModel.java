@@ -9,8 +9,8 @@ public class TestUserModel {
 
 	public static void main(String[] args) throws Exception {
 
-		 testAdd();
-		// testDelete();
+		// testAdd();
+		 testDelete();
 		// testUpdate();
 		// testSearch();
 		// testFindByPk();
@@ -133,7 +133,7 @@ public class TestUserModel {
 
 		UserModel model = new UserModel();
 
-		model.delete(3);
+		model.delete(5);
 
 	}
 
@@ -143,14 +143,14 @@ public class TestUserModel {
 
 		UserBean bean = new UserBean();
 
-		bean.setId(3);
-		bean.setFirstName("Mohan");
-		bean.setLastName("Yadav");
-		bean.setLoginId("mohan@gmail.com");
+		bean.setId(6);
+		bean.setFirstName("shubham");
+		bean.setLastName("patel");
+		bean.setLoginId("shubham@gmail.com");
 		bean.setPassword("09876543210");
-		bean.setAddress("indore");
+		bean.setAddress("ujjain");
 		bean.setGender("Male");
-		bean.setDob(sdf.parse("1984-02-03"));
+		bean.setDob(sdf.parse("2000-08-10"));
 
 		UserModel model = new UserModel();
 

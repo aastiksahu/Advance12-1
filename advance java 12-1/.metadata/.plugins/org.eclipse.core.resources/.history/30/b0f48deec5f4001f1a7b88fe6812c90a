@@ -1,0 +1,18 @@
+package com.rays.util;
+
+public final class JDBCDatasource {
+	
+	private static JDBCDataSource jds = null;
+	private ComboPooledDataSouce ds = null;
+	
+	private JDBCDataSource() {
+		try {
+			ds = new ComboPooledDataSource();
+			
+			ds.setDriver
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+}

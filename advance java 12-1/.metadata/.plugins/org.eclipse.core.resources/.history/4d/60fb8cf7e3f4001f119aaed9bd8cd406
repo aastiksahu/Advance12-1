@@ -1,0 +1,21 @@
+package com.rays.util;
+
+public class TestDCP {
+	
+	public static void main(String[] args) {
+		
+		for (int i = 1; i <= 100; i++) {
+			
+			testSearch();
+			
+			System.out.println("Conection : -" + i);
+			
+		}
+	}
+
+	private static void testSearch() {
+		
+		
+	}
+
+}

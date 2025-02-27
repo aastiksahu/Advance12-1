@@ -1,0 +1,28 @@
+package com.rays.util;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class TestDCP {
+
+	public static void main(String[] args) {
+
+		for (int i = 1; i <= 100; i++) {
+
+			testSearch();
+
+			System.out.println("Conection :-" + i);
+
+		}
+	}
+
+	private static void testSearch() throws SQLException {
+		
+		Connection conn = JDBCDataSource.getConnection();
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+
+	}
+
+}

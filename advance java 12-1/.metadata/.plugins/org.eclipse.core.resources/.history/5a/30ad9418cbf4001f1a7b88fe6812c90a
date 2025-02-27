@@ -1,0 +1,7 @@
+package com.rays.util;
+
+public final class JdbcDatasource {
+	
+	private static JdbcDataSource jds = null;
+
+}
